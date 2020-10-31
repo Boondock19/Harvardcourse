@@ -1,0 +1,19 @@
+{% extends "encyclopedia/wiki/layout.html" %}
+{% block title %}
+    EditPage
+{% endblock %}
+
+{% block body %}
+     <h1>Edit Entry</h1>
+        <div class="form-group"></div>   
+            <form action="{% url 'EditEntry' title  %}" method="POST">
+            {% csrf_token %}
+                        <tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" class="form-control col-lg-5 col-md-5" required id="id_title" value="{{ title }}"></td></tr>
+            <tr><th><label for="id_contend">Contend:</label></th><td><textarea name="contend" cols="40" rows="10" class="form-control col-lg-5 col-md-5" required id="id_contend" value="">
+                {{ contend|safe }}
+            </textarea></td></tr>
+                        <button class="btn btn-outline-success" type="submit">Edit</button>
+                    </form>
+        </div>
+      
+{% endblock %}
