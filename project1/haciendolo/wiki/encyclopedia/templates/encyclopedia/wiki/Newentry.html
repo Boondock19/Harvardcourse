@@ -7,7 +7,7 @@
      <h1>Add New Entry</h1>
      <h3>{{ Error }}</h3>
     <div class="form-group">
-        <form action="wiki/{{ entry }}" method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
             {{ form }}
             <button class="btn btn-outline-success" type="submit">Create</button>

@@ -8,7 +8,9 @@ from django import forms
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.db import models
-from django.forms import ModelForm  
+from django.forms import ModelForm 
+from .filters import SearchFilter
+import re 
 
 class NewentryForm(forms.Form):
     title=forms.CharField(label="Title",widget=forms.TextInput(attrs={'class':'form-control col-lg-5 col-md-5'}))
@@ -43,6 +45,28 @@ def RandomPage(request):
     return render(request, "encyclopedia/wiki/entry.html", {
     "contend": markdown2.markdown(util.get_entry(r)),
     "title":r})
+
+def SearchEntry(request):
+    if request.method == 'POST':
+        term = request.POST
+        term = term['q']
+        #term=term[0]
+        entries = util.list_entries()
+        searchlist = []
+        for entry in entries:
+            if re.search(term.lower(), entry.lower()): 
+                 searchlist.append(entry)
+            
+    if term in searchlist:
+        return render(request, "encyclopedia/wiki/entry.html", {
+            "contend": markdown2.markdown(util.get_entry(term)),
+            "title":term})
+    else:
+        return render(request, "encyclopedia/searchbar.html", {
+            'entries': searchlist
+        })    
+
+   
 
 def NewEntry(request):
     if request.method == "POST":
@@ -79,6 +103,6 @@ def EditEntry(request,title):
             "title":title,"contend":contend
         })
   
-       
+   
 
 

@@ -1,11 +1,5 @@
 ##Calendario
-
-            
-
-#Meses:
-
-- Enero
-
+#Meses
+- Enero OS
 - Febrero
-
-- ...
+- Marzo
